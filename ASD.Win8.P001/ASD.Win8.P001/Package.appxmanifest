@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  
+  <Identity Name="764340e9-d140-4c46-8910-67fc99d9ca20"
+            Publisher="CN=vmarvin"
+            Version="1.0.0.0" />
+  
+  <Properties>
+    <DisplayName>ASD.Win8.P001</DisplayName>
+    <PublisherDisplayName>vmarvin</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+    <Description>ASD.Win8.P001</Description>
+  </Properties>
+  
+  <Prerequisites>
+    <OSMinVersion>6.2</OSMinVersion>
+    <OSMaxVersionTested>6.2</OSMaxVersionTested>
+  </Prerequisites>
+  
+  <Resources>
+    <Resource Language="en-us"/>
+  </Resources>
+  
+  <Applications>
+    <Application Id="App" 
+        Executable="asd.win8.p001.exe" 
+        EntryPoint="ASD.Win8.P001.App">
+        <VisualElements 
+            DisplayName="ASD.Win8.P001"
+            Logo="Images\Logo.png"
+            SmallLogo="Images\SmallLogo.png"
+            Description="ASD.Win8.P001"
+            ForegroundText="light"
+            BackgroundColor="#222222">
+            <SplashScreen Image="Images\SplashScreen.png" />
+        </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="ASD.MemoryGame.Views.MemoryBoardView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ASD_MemoryGame_ViewModels="using:ASD.MemoryGame.ViewModels"
+    mc:Ignorable="d"
+	DataContext="{Binding Source={StaticResource ResourceKey=ViewModelLocator}, Path=MemoryBoardViewModel}"
+    d:DesignHeight="300" d:DesignWidth="400">
+	<UserControl.Resources>
+		<TransitionCollection x:Key="CardTransitions">
+            <EntranceThemeTransition/>
+        </TransitionCollection>
+	</UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="#FF0C0C0C" Transitions="{StaticResource ResourceKey=CardTransitions}">
+        <ItemsControl ItemsSource="{Binding Path=CurrentGameCards}">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+                    <WrapGrid Orientation="Horizontal" Margin="70"/>
+                </ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+                    <Button Transitions="{StaticResource ResourceKey=CardTransitions}"  Margin="8" Width="320" Height="180" Command="{Binding Path=ToggleCommand}">
+						<Button.Template>
+							<ControlTemplate>
+                                <Grid>
+                                    <Viewbox Stretch="UniformToFill" StretchDirection="Both" Opacity="1">
+                                        <Image Source="{Binding Path=ImageUriString}" Stretch="UniformToFill" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    </Viewbox>
+                                    <Viewbox Stretch="UniformToFill" StretchDirection="Both" Opacity="0">
+                                        <Image Source="{Binding Path=CardBackgroundImageUriString}" Stretch="UniformToFill" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    </Viewbox>
+                                </Grid>
+                            </ControlTemplate>
+						</Button.Template>
+                    </Button>
+                </DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+        <Button Content="New Game" Command="{Binding Path=NewGameCommand}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20"/>
+    </Grid>
+</UserControl>

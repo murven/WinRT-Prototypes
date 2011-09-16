@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  
+  <Identity Name="69efd032-3104-458a-bf34-f79f35505787"
+            Publisher="CN=vmarvin"
+            Version="1.0.0.0" />
+  
+  <Properties>
+    <DisplayName>ASD.MemoryGame</DisplayName>
+    <PublisherDisplayName>vmarvin</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+    <Description>ASD.MemoryGame</Description>
+  </Properties>
+  
+  <Prerequisites>
+    <OSMinVersion>6.2</OSMinVersion>
+    <OSMaxVersionTested>6.2</OSMaxVersionTested>
+  </Prerequisites>
+  
+  <Resources>
+    <Resource Language="en-us"/>
+  </Resources>
+  
+  <Applications>
+    <Application Id="App" 
+        Executable="asd.memorygame.exe" 
+        EntryPoint="ASD.MemoryGame.App">
+        <VisualElements 
+            DisplayName="ASD.MemoryGame"
+            Logo="Images\Logo.png"
+            SmallLogo="Images\SmallLogo.png"
+            Description="ASD.MemoryGame"
+            ForegroundText="light"
+            BackgroundColor="#222222">
+            <SplashScreen Image="Images\SplashScreen.png" />
+        </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
