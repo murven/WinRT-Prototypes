@@ -12,6 +12,10 @@ using Windows.UI.Xaml.Input;
 	public class MemoryCardViewModel : ViewModelBase
 	{
 
+
+		WeakReference<MemoryBoardViewModel> boardReference;
+
+
 		#region MemoryCard (INotifyPropertyChanged Property)
 		private MemoryCard memoryCard;
 
@@ -97,7 +101,40 @@ using Windows.UI.Xaml.Input;
 		}
 		#endregion
 
+		#region IsSelected (INotifyPropertyChanged Property)
+		private bool isSelected;
 
+		public bool IsSelected
+		{
+			get { return isSelected; }
+			set
+			{
+				if (isSelected != value)
+				{
+					isSelected = value;
+					OnPropertyChanged("IsSelected");
+					if (isSelected)
+					{
+						SelectCurrentCard();
+					}
+				}
+			}
+		}
+
+		private void SelectCurrentCard()
+		{
+			MemoryBoardViewModel board;
+			boardReference.TryGetTarget(out board);
+			if (board == null) { return; }
+			board.SelectCard(this);
+		}
+		#endregion
+
+		public MemoryCardViewModel(MemoryBoardViewModel board)
+			: base()
+		{
+			boardReference = new WeakReference<MemoryBoardViewModel>(board);
+		}
 
 		protected override void OnInitialize()
 		{

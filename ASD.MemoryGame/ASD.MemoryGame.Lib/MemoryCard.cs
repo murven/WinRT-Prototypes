@@ -15,7 +15,7 @@ namespace ASD.MemoryGame.Lib
                 return id;
             }
         }
-        private Guid id = new Guid();
+		private Guid id = Guid.NewGuid();
 
         public Uri ImageUri { get; set; }
     }

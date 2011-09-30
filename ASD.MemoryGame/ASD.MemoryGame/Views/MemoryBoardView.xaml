@@ -6,6 +6,7 @@
 	xmlns:ASD_MemoryGame_ViewModels="using:ASD.MemoryGame.ViewModels"
     mc:Ignorable="d"
 	DataContext="{Binding Source={StaticResource ResourceKey=ViewModelLocator}, Path=MemoryBoardViewModel}"
+	FontSize="18"
     d:DesignHeight="300" d:DesignWidth="400">
 	<UserControl.Resources>
 		<TransitionCollection x:Key="CardTransitions">
@@ -21,23 +22,77 @@
 			</ItemsControl.ItemsPanel>
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-                    <Button Transitions="{StaticResource ResourceKey=CardTransitions}"  Margin="8" Width="320" Height="180" Command="{Binding Path=ToggleCommand}">
-						<Button.Template>
+					<ToggleButton Transitions="{StaticResource ResourceKey=CardTransitions}"  Margin="8" Width="320" Height="180" Command="{Binding Path=ToggleCommand}" IsChecked="{Binding Path=IsSelected, Mode=TwoWay}">
+						<ToggleButton.Template>
 							<ControlTemplate>
                                 <Grid>
-                                    <Viewbox Stretch="UniformToFill" StretchDirection="Both" Opacity="1">
+									<VisualStateManager.VisualStateGroups>
+										<VisualStateGroup x:Name="CheckedStates">
+											<VisualState x:Name="Checked">
+												<Storyboard>
+													<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CardFront">
+														<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="1">
+															<EasingDoubleKeyFrame.EasingFunction>
+																<QuinticEase EasingMode="EaseIn"/>
+															</EasingDoubleKeyFrame.EasingFunction>
+														</EasingDoubleKeyFrame>
+													</DoubleAnimationUsingKeyFrames>
+													<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CardBack">
+														<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0">
+															<EasingDoubleKeyFrame.EasingFunction>
+																<QuinticEase EasingMode="EaseIn"/>
+															</EasingDoubleKeyFrame.EasingFunction>
+														</EasingDoubleKeyFrame>
+													</DoubleAnimationUsingKeyFrames>
+												</Storyboard>
+											</VisualState>
+											<VisualState x:Name="Unchecked">
+												<Storyboard>
+													<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CardFront">
+														<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0">
+															<EasingDoubleKeyFrame.EasingFunction>
+																<QuinticEase EasingMode="EaseIn"/>
+															</EasingDoubleKeyFrame.EasingFunction>
+														</EasingDoubleKeyFrame>
+													</DoubleAnimationUsingKeyFrames>
+													<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CardBack">
+														<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="1">
+															<EasingDoubleKeyFrame.EasingFunction>
+																<QuinticEase EasingMode="EaseIn"/>
+															</EasingDoubleKeyFrame.EasingFunction>
+														</EasingDoubleKeyFrame>
+													</DoubleAnimationUsingKeyFrames>
+												</Storyboard>
+											</VisualState>
+										</VisualStateGroup>
+									</VisualStateManager.VisualStateGroups>
+                                    <Viewbox x:Name="CardFront" Stretch="UniformToFill" StretchDirection="Both" Opacity="0">
                                         <Image Source="{Binding Path=ImageUriString}" Stretch="UniformToFill" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                                     </Viewbox>
-                                    <Viewbox Stretch="UniformToFill" StretchDirection="Both" Opacity="0">
+                                    <Viewbox x:Name="CardBack" Stretch="UniformToFill" StretchDirection="Both" Opacity="1">
                                         <Image Source="{Binding Path=CardBackgroundImageUriString}" Stretch="UniformToFill" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                                     </Viewbox>
                                 </Grid>
                             </ControlTemplate>
-						</Button.Template>
-                    </Button>
+						</ToggleButton.Template>
+                    </ToggleButton>
                 </DataTemplate>
 			</ItemsControl.ItemTemplate>
 		</ItemsControl>
         <Button Content="New Game" Command="{Binding Path=NewGameCommand}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20"/>
+		<Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="20">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<TextBlock Margin="10">
+				<Run Text="Move count:"/>
+				<Run Text="{Binding Path=MoveCount}"/>
+			</TextBlock>
+			<TextBlock Grid.Column="1" Margin="10">
+				<Run Text="Cards found:"/>
+				<Run Text="{Binding Path=FoundCardCount}"/>
+			</TextBlock>
+		</Grid>
     </Grid>
 </UserControl>

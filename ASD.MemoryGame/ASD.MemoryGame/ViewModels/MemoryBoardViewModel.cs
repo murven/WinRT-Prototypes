@@ -14,6 +14,73 @@ namespace ASD.MemoryGame.ViewModels
 	public class MemoryBoardViewModel : ViewModelBase
 	{
 
+
+		#region FoundCardCount (INotifyPropertyChanged Property)
+		private int foundCardCount;
+
+		public int FoundCardCount
+		{
+			get { return foundCardCount; }
+			set
+			{
+				if (foundCardCount != value)
+				{
+					foundCardCount = value;
+					OnPropertyChanged("FoundCardCount");
+				}
+			}
+		}
+		#endregion
+
+		#region MoveCount (INotifyPropertyChanged Property)
+		private int moveCount;
+
+		public int MoveCount
+		{
+			get { return moveCount; }
+			set
+			{
+				if (moveCount != value)
+				{
+					moveCount = value;
+					OnPropertyChanged("MoveCount");
+				}
+			}
+		}
+		#endregion
+
+
+		MemoryCardViewModel firstSelectedCard;
+		MemoryCardViewModel secondSelectedCard;
+
+		public void SelectCard(MemoryCardViewModel cardViewModel)
+		{
+			if (firstSelectedCard == null)
+			{
+				firstSelectedCard = cardViewModel;
+			}
+			else if (secondSelectedCard == null)
+			{
+				secondSelectedCard = cardViewModel;
+				MoveCount++;
+			}
+			else if (secondSelectedCard.MemoryCard.Id == firstSelectedCard.MemoryCard.Id)
+			{
+				FoundCardCount++;
+				firstSelectedCard = cardViewModel;
+				secondSelectedCard = null;
+			}
+			else
+			{
+				var firstCard = firstSelectedCard;
+				var secondCard = secondSelectedCard;
+				firstCard.IsSelected = false;
+				secondCard.IsSelected = false;
+				firstSelectedCard = cardViewModel;
+				secondSelectedCard = null;
+			}
+		}
+
 		Uri[] defaultCardUriArray = new Uri[] 
 		{
 			new Uri("http://thewholegardenwillbow.files.wordpress.com/2010/12/mantis.jpg"),
@@ -111,6 +178,10 @@ namespace ASD.MemoryGame.ViewModels
 		void OnNewGame()
 		{
 			isCreatingNewGame = true;
+			FoundCardCount = 0;
+			MoveCount = 0;
+			firstSelectedCard = null;
+			secondSelectedCard = null;
 			var cardCountValue = GetCardCountValue();
 			var halfCardCountValue = cardCountValue / 2;
 
@@ -131,8 +202,8 @@ namespace ASD.MemoryGame.ViewModels
 
 			for (int i = 0; i < halfCardCountValue; i++)
 			{
-				var firstCardViewModel = new MemoryCardViewModel();
-				var secondCardViewModel = new MemoryCardViewModel();
+				var firstCardViewModel = new MemoryCardViewModel(this);
+				var secondCardViewModel = new MemoryCardViewModel(this);
 				firstCardViewModel.Initialize(memoryCards[i], CardBackgroundImageUriString);
 				secondCardViewModel.Initialize(memoryCards[i], CardBackgroundImageUriString);
 
