@@ -1,5 +1,0 @@
-c:\Projects\ASD.MemoryGame\ASD.MemoryGame.Lib\bin\Debug\ASD.MemoryGame.Lib.dll
-c:\Projects\ASD.MemoryGame\ASD.MemoryGame.Lib\bin\Debug\ASD.MemoryGame.Lib.pdb
-c:\Projects\ASD.MemoryGame\ASD.MemoryGame.Lib\obj\Debug\ASD.MemoryGame.Lib.csprojResolveAssemblyReference.cache
-c:\Projects\ASD.MemoryGame\ASD.MemoryGame.Lib\obj\Debug\ASD.MemoryGame.Lib.dll
-c:\Projects\ASD.MemoryGame\ASD.MemoryGame.Lib\obj\Debug\ASD.MemoryGame.Lib.pdb
